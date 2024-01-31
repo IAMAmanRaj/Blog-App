@@ -31,7 +31,7 @@ const Header = () => {
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
         <AiOutlineSearch />
       </Button>
-      <div className="flex gap-2 md:order-2">
+      <div className="flex gap-2 md:order-2 items-center">
         <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
@@ -40,7 +40,7 @@ const Header = () => {
             <img
               src={currentUser.profilePicture}
               alt="profile"
-              className="h-7 w-7 rounded-full object-cover"
+              className="h-7 w-7  rounded-full object-cover"
             />
           ) : (
             <Button gradientDuoTone="purpleToBlue" outline>
