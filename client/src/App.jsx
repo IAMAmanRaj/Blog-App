@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
+import FooterComp from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
+        <FooterComp />
       </BrowserRouter>
     </>
   );
