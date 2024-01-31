@@ -32,7 +32,7 @@ const Header = () => {
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="">
+        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
         <Link to="/profile">
@@ -40,10 +40,12 @@ const Header = () => {
             <img
               src={currentUser.profilePicture}
               alt="profile"
-              className="'h-7 w-7 rounded-full object-cover"
+              className="h-7 w-7 rounded-full object-cover"
             />
           ) : (
-            <Button gradientDuoTone="purpleToBlue">Sign In</Button>
+            <Button gradientDuoTone="purpleToBlue" outline>
+              Sign In
+            </Button>
           )}
         </Link>
         <Navbar.Toggle />
