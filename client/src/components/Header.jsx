@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
+import { Avatar } from "flowbite-react";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname;
@@ -37,11 +38,24 @@ const Header = () => {
         </Button>
         <Link to="/profile">
           {currentUser ? (
-            <img
-              src={currentUser.profilePicture}
-              alt="profile"
-              className="h-7 w-7  rounded-full object-cover"
-            />
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar alt="user" img={currentUser.profilePicture} rounded />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">@{currentUser.username}</span>
+                <span className="block text-sm font-medium truncate">
+                  @{currentUser.email}
+                </span>
+              </Dropdown.Header>
+              <Link to={"/dashboard?tab=profile"}></Link>
+              <Dropdown.Item>Profile</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>Sign out</Dropdown.Item>
+            </Dropdown>
           ) : (
             <Button gradientDuoTone="purpleToBlue" outline>
               Sign In

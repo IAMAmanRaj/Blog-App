@@ -52,7 +52,7 @@ export default function SignIn() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a demo project. You can sign up with your email and password
+            This is a demo project. You can sign in with your email and password
             or with Google
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function SignIn() {
               <Label value="Your password" />
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="***********"
                 id="password"
                 className="bg-slate-100 p-3 rounded-lg"
                 onChange={handleChange}
@@ -85,7 +85,7 @@ export default function SignIn() {
               gradientDuoTone="purpleToPink"
               disabled={loading}
               type="submit"
-              className=" text-white p-3 rounded-lg uppercase"
+              className=" text-white p-2 rounded-lg uppercase"
             >
               {loading ? "Loading..." : "Sign In"}
             </Button>

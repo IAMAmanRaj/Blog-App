@@ -49,8 +49,8 @@ export default function SignUp() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a demo project. You can sign up with your email and password
-            or with Google
+            This is a demo project. You can sign up with your username, email
+            and password or with Google
           </p>
         </div>
         <div className="flex-1">
@@ -93,7 +93,7 @@ export default function SignUp() {
               gradientDuoTone="purpleToPink"
               disabled={loading}
               type="submit"
-              className=" text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+              className=" text-white p-2 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
             >
               {loading ? "Loading..." : "Sign Up"}
             </Button>
