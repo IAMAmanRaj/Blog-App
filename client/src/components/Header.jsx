@@ -7,11 +7,21 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { Avatar } from "flowbite-react";
 import { toggleTheme } from "../redux/theme/themeSlice";
+
+import { signOut } from "../redux/user/userSlice";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
+  const handleSignout = async () => {
+    try {
+      await fetch("api/auth/sign-out");
+      dispatch(signOut());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Navbar className="border-b-2 ">
@@ -37,39 +47,40 @@ const Header = () => {
       </Button>
       <div className="flex gap-2 md:order-2 items-center">
         <Button
-          className="w-12 h-10 hidden sm:inline"
+          className="w-12 h-10 inline"
           color="gray"
           pill
           onClick={() => dispatch(toggleTheme())}
         >
-          {theme === "light" ? <FaSun /> : <FaMoon />}
+          {theme === "light" ? <FaMoon /> : <FaSun />}
         </Button>
-        <Link to="/profile">
-          {currentUser ? (
-            <Dropdown
-              arrowIcon={false}
-              inline
-              label={
-                <Avatar alt="user" img={currentUser.profilePicture} rounded />
-              }
-            >
-              <Dropdown.Header>
-                <span className="block text-sm">@{currentUser.username}</span>
-                <span className="block text-sm font-medium truncate">
-                  @{currentUser.email}
-                </span>
-              </Dropdown.Header>
-              <Link to={"/dashboard?tab=profile"}></Link>
+
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">@{currentUser.username}</span>
+              <span className="block text-sm font-medium truncate">
+                @{currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to={"/dashboard?tab=profile"}>
               <Dropdown.Item>Profile</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item>Sign out</Dropdown.Item>
-            </Dropdown>
-          ) : (
-            <Button gradientDuoTone="purpleToBlue" outline>
-              Sign In
-            </Button>
-          )}
-        </Link>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Button gradientDuoTone="purpleToBlue" outline>
+            Sign In
+          </Button>
+        )}
+
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
