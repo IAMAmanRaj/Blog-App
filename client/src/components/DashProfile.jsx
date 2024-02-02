@@ -19,6 +19,7 @@ import {
   deleteUserSuccess,
   signOut,
 } from "../redux/user/userSlice";
+import { Button } from "flowbite-react";
 
 const DashProfile = () => {
   const fileRef = useRef(null);
@@ -110,7 +111,7 @@ const DashProfile = () => {
     <div className="p-4 max-w-lg mx-auto w-full">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4">
         <input
           type="file"
           ref={fileRef}
@@ -160,9 +161,15 @@ const DashProfile = () => {
           className="bg-slate-100 rounded-lg p-3"
           onChange={handleChange}
         />
-        <button className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 p-3">
+        <Button
+          onClick={handleSubmit}
+          className="p-1 uppercase"
+          type="button"
+          gradientDuoTone="purpleToBlue"
+          outline
+        >
           {loading ? "loading..." : "update"}
-        </button>
+        </Button>
       </form>
       <div className="flex text-red-500 justify-between mt-5">
         <span onClick={handleDeleteAccount} className=" cursor-pointer">
