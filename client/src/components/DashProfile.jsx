@@ -20,6 +20,7 @@ import {
   signOut,
 } from "../redux/user/userSlice";
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
   const fileRef = useRef(null);
@@ -111,7 +112,7 @@ const DashProfile = () => {
     <div className="p-4 max-w-lg mx-auto w-full">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
 
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="file"
           ref={fileRef}
@@ -132,7 +133,7 @@ const DashProfile = () => {
             </span>
           ) : imagePercent > 0 && imagePercent < 100 ? (
             <span className="text-slate-700">{`Uploading:${imagePercent}%`}</span>
-          ) : imagePercent === 100 ? (
+          ) : imagePercent === 100 && !imageError ? (
             <span className="text-green-700">Image uploaded successfully</span>
           ) : (
             ""
@@ -162,14 +163,24 @@ const DashProfile = () => {
           onChange={handleChange}
         />
         <Button
-          onClick={handleSubmit}
           className="p-1 uppercase"
-          type="button"
+          type="submit"
           gradientDuoTone="purpleToBlue"
           outline
         >
           {loading ? "loading..." : "update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="flex text-red-500 justify-between mt-5">
         <span onClick={handleDeleteAccount} className=" cursor-pointer">
@@ -180,7 +191,7 @@ const DashProfile = () => {
         </span>
       </div>
       <p className="text-red-700 mt-5">{error && "Something went wrong !"}</p>
-      <p className="text-green-700 mt-5">
+      <p className="text-green-700 mt-5 p-4  rounded-4xl bg-opacity-20">
         {updateSuccess && "User Updated Successfully"}
       </p>
     </div>
