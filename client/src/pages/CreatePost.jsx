@@ -20,7 +20,7 @@ const [imageUploadProgress,setImageUploadProgress]=useState(null);
 const [imageUploadError,setImageUploadError]=useState(null);
 const [formData,setFormData]=useState({});
 const [publishError,setPublishError]=useState(null);
-const navigate=useNavigate();
+const navigate = useNavigate();
 const handleUploadImage=async ()=>{
   try{
     if(!file){
@@ -72,17 +72,19 @@ const handleSubmit=async(e)=>{
       },
       body: JSON.stringify(formData),
     });
+    
     const data=await res.json();
-
+    console.log(data);
    if(!res.ok){
     setPublishError(data.message);
+    console.log(data.message);
     return;
   }
 
 
     if(res.ok){
       setPublishError(null);
-      navigate(`/post/${data.slug}`)
+      navigate(`/post/${data.slug}`);
     }
 
 
@@ -113,6 +115,8 @@ const handleSubmit=async(e)=>{
             <option value="javascript">Javascript</option>
             <option value="reactjs">React.js</option>
             <option value="nextjs">Next.js</option>
+            <option value="nodejs">Node.js</option>
+            <option value="tailwind">Tailwind</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -160,7 +164,7 @@ const handleSubmit=async(e)=>{
           Publish
         </Button>
         {
-          publishError&& <Alert color='failure' className="mt-5">{publishError}</Alert>
+          publishError && <Alert color='failure' className="mt-5">{publishError}</Alert>
         }
       </form>
     </div>
