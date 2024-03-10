@@ -7,12 +7,12 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
-import { Button, Label } from "flowbite-react";
+import { Button, Label , Spinner , TextInput } from "flowbite-react";
 
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error:errorMessage } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,6 +22,12 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+if(!formData.email || !formData.password)
+{
+  return dispatch(signInFailure('Please fill all the fields'));
+}
+
     try {
       dispatch(signInStart());
       const res = await fetch("/api/auth/sign-in", {
@@ -33,13 +39,17 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data));
+        dispatch(signInFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
-      navigate("/");
+      if(res.ok)
+      {
+        dispatch(signInSuccess(data));
+        navigate("/");
+      }
+      
     } catch (error) {
-      dispatch(signInFailure(error));
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -61,13 +71,11 @@ export default function SignIn() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col">
               <Label value="Your email"></Label>
-              <input
-                type="email"
-                placeholder="name@company.com"
-                id="email"
-                className="bg-slate-100 p-3 rounded-lg"
+              <TextInput
+                type='email'
+                placeholder='name@company.com'
+                id='email'
                 onChange={handleChange}
-                required
               />
             </div>
             <div className="flex flex-col">
