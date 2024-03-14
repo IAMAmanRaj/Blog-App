@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { signOut } from "../redux/user/userSlice";
+import { signoutSuccess } from "../redux/user/userSlice";
 export default function DashSidebar() {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -21,7 +21,7 @@ export default function DashSidebar() {
   const handleSignout = async () => {
     try {
       await fetch("api/auth/sign-out");
-      dispatch(signOut());
+      dispatch(signoutSuccess());
     } catch (error) {
       console.log(error);
     }

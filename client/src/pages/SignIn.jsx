@@ -7,7 +7,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
-import { Button, Label , Spinner , TextInput } from "flowbite-react";
+import { Alert, Button, Label , Spinner , TextInput } from "flowbite-react";
 
 
 export default function SignIn() {
@@ -81,12 +81,10 @@ if(!formData.email || !formData.password)
             <div className="flex flex-col">
               <Label value="Your password" />
               <input
-                type="password"
-                placeholder="***********"
-                id="password"
-                className="bg-slate-100 p-3 rounded-lg"
+                type='password'
+                placeholder='**********'
+                id='password'
                 onChange={handleChange}
-                required
               />
             </div>
 
@@ -96,7 +94,14 @@ if(!formData.email || !formData.password)
               type="submit"
               className=" text-white p-2 rounded-lg uppercase"
             >
-              {loading ? "Loading..." : "Sign In"}
+               {loading ? (
+                <>
+                  <Spinner size='sm' />
+                  <span className='pl-3'>Loading...</span>
+                </>
+              ) : (
+                'Sign In'
+              )}
             </Button>
             <OAuth />
           </form>
@@ -111,9 +116,14 @@ if(!formData.email || !formData.password)
               </span>
             </Link>
           </div>
-          <p className="text-red-700 mt-5">
-            {error && "Something went wrong!"}
-          </p>
+{errorMessage && (
+  <Alert color="failure" className="mt-5">
+    {errorMessage}
+  </Alert>
+)}
+
+
+          
         </div>
       </div>
     </div>
