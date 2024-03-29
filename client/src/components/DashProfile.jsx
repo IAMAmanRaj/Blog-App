@@ -151,7 +151,7 @@ export default function DashProfile() {
 
   const handleSignout = async () => {
     try {
-      await fetch("api/auth/signout");
+      await fetch("api/auth/sign-out");
       dispatch(signoutSuccess());
     } catch (error) {
       console.log(error);
