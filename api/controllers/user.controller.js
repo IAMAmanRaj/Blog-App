@@ -40,7 +40,7 @@ export const updateUser = async (req, res, next) => {
 };
 
 export const deleteUser = async (req, res, next) => {
-  if (req.user.id != req.params.id) {
+  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
     return next(errorHandler(401, "You can delete only your account"));
   }
   try {
