@@ -7,12 +7,17 @@ import { set } from 'mongoose';
 
 
 
-export default function Comment({ comment,onLike,onEdit }) {
+export default function Comment({ comment,onLike,onEdit,onDelete}) {
+
   const [user, setUser] = useState({});
+
   const [isEditing, setIsEditing] = useState(false);
+
   const [editedContent, setEditedContent] = useState(comment.content);
+
   const { currentUser } = useSelector((state) => state.user);
-  console.log(user);
+
+  
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -29,18 +34,11 @@ export default function Comment({ comment,onLike,onEdit }) {
   }, [comment]);
 
 
-
-
-
-
-
-
-
-
-  const handleEdit = () => {
+   const handleEdit = () => {
     setIsEditing(true);
     setEditedContent(comment.content);
   };
+
 
   const handleSave = async () => {
     try {
@@ -138,13 +136,23 @@ export default function Comment({ comment,onLike,onEdit }) {
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                  <button
+                  <>
+                   <button
                     type='button'
                     onClick={handleEdit}
                     className='text-gray-400 hover:text-blue-500'
                   >
                     Edit
                   </button>
+                  <button
+                      type='button'
+                      onClick={() => onDelete(comment._id)}
+                      className='text-gray-400 hover:text-red-500'
+                    >
+                      Delete
+                    </button>
+                  </>
+                  
                 )}
             </div>
           </>
